@@ -34,3 +34,23 @@
 - Complete Milestone 01 deliverables
 - Prepare screenshots for submission
 - Begin planning for Milestone 02
+
+
+Meeting Date: Jan 29, 2026
+
+Agenda:
+
+Finalize UI direction
+
+Review dashboard layout options
+
+Decisions Made:
+
+Team agreed to use a dashboard-based layout inspired by a Figma prototype
+
+Main dashboard will show expense summary cards and recent transactions
+
+Artifacts:
+
+Figma wireframe created:
+https://www.figma.com/make/sfVwTgAGDP5De7AzwSF3uU/Dashboard-Home-Page-Design
