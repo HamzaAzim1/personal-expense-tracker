@@ -34,6 +34,15 @@ A web-based personal expense tracker that allows users to log expenses, categori
 - Backend: Node.js + Express
 - Database: MongoDB or PostgreSQL
 
+
+## Wireframes
+
+Design wireframes for the Personal Expense Tracker were created using Figma.
+
+🔗 Figma Design:
+https://www.figma.com/make/sfVwTgAGDP5De7AzwSF3uU/Dashboard-Home-Page-Design
+
+
 ## Project Links
 - Repository: <link>
 - Issue Board: <link>
