@@ -8,7 +8,7 @@ GitHub Repository:
 https://github.com/HamzaAzim1/personal-expense-tracker
 
 GitHub Project Board (Kanban):
-https://github.com/users/HamzaAzim1/projects/your-project-number
+https://github.com/users/HamzaAzim1/projects/1
 
 GitHub Issues:
 https://github.com/HamzaAzim1/personal-expense-tracker/issues
