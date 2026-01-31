@@ -22,7 +22,7 @@ https://www.figma.com/make/sfVwTgAGDP5De7AzwSF3uU/Dashboard-Home-Page-Design
 
 Documentation:
 Activity Log:
-https://github.com/HamzaAzim1/personal-expense-tracker/tree/main/docs
+https://github.com/HamzaAzim1/personal-expense-tracker/blob/main/docs/activity-log.md
 
 README:
 https://github.com/HamzaAzim1/personal-expense-tracker/blob/main/README.md
