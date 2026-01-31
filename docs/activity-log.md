@@ -7,8 +7,8 @@
 
 ## Attendees
 - Hamza Azim
-- [Teammate Name]
-- [Teammate Name]
+- Samiyah Khan
+- Anna Doneva
 
 ## Agenda
 - Finalize project idea
@@ -26,9 +26,9 @@
 
 ## Task Assignments
 - GitHub repository & Kanban board setup: **Hamza Azim**
-- Project proposal draft: [Teammate Name]
-- User stories & acceptance criteria: [Teammate Name]
-- Wireframe design: [Teammate Name]
+- Project proposal draft: **Samiyah Khan and Anna Doneva**
+- User stories & acceptance criteria: **Samiyah Khan**
+- Wireframe design: **Hamza Azim**
 
 ## Next Steps
 - Complete Milestone 01 deliverables
@@ -38,19 +38,14 @@
 
 Meeting Date: Jan 29, 2026
 
-Agenda:
+# Agenda:
+- Finalize UI direction
+- Review dashboard layout options
 
-Finalize UI direction
+# Decisions Made:
+- Team agreed to use a dashboard-based layout inspired by a Figma prototype
+- Main dashboard will show expense summary cards and recent transactions
 
-Review dashboard layout options
-
-Decisions Made:
-
-Team agreed to use a dashboard-based layout inspired by a Figma prototype
-
-Main dashboard will show expense summary cards and recent transactions
-
-Artifacts:
-
+# Artifacts:
 Figma wireframe created:
 https://www.figma.com/make/sfVwTgAGDP5De7AzwSF3uU/Dashboard-Home-Page-Design
