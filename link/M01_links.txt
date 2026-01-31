@@ -1,0 +1,35 @@
+CP476 – Personal Budget Tracker
+Milestone 01 – Project Links
+Winter 2026
+
+--------------------------------------------------
+
+GitHub Repository:
+https://github.com/HamzaAzim1/personal-expense-tracker
+
+GitHub Project Board (Kanban):
+https://github.com/users/HamzaAzim1/projects/your-project-number
+
+GitHub Issues:
+https://github.com/HamzaAzim1/personal-expense-tracker/issues
+
+--------------------------------------------------
+
+Figma Wireframes / UI Prototype:
+https://www.figma.com/make/sfVwTgAGDP5De7AzwSF3uU/Dashboard-Home-Page-Design
+
+--------------------------------------------------
+
+Documentation:
+Activity Log:
+https://github.com/HamzaAzim1/personal-expense-tracker/tree/main/docs
+
+README:
+https://github.com/HamzaAzim1/personal-expense-tracker/blob/main/README.md
+
+--------------------------------------------------
+
+Team Members:
+Hamza Azim
+Samiyah Khan
+Anna Doneva
