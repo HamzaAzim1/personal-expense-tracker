@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="./css/style.css"/>
+</head>
+<body>
+  <header><strong>Personal Expense Tracker</strong></header>
+
+  <div class="container">
+    <div class="card">
+      <h2>Login</h2>
+      <small>Demo: demo@demo.com / demo123</small>
+      <p id="msg"></p>
+
+      <form id="loginForm">
+        <div>
+          <label>Email</label>
+          <input name="email" type="email" required>
+        </div>
+        <div>
+          <label>Password</label>
+          <input name="password" type="password" required>
+        </div>
+        <button class="btn btn-primary">Login</button>
+      </form>
+
+      <p>Don’t have an account? <a href="./register.html">Register</a></p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { handleLogin } from "./js/auth.js";
+    handleLogin(document.getElementById("loginForm"));
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./css/style.css"/>
+</head>
+<body>
+  <header>
+    <strong>Dashboard</strong>
+    <div class="actions">
+      <small id="userEmail"></small>
+      <button id="logoutBtn" class="btn btn-ghost">Logout</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>Monthly Summary (Mock)</h2>
+      <div class="row">
+        <div><small>Income</small><h2 id="incomeTotal">$0.00</h2></div>
+        <div><small>Expenses</small><h2 id="expenseTotal">$0.00</h2></div>
+      </div>
+      <div style="margin-top:10px;">
+        <small>Balance</small>
+        <h2 id="balanceTotal">$0.00</h2>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="./add.html">Add Transaction</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Transactions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th><th>Category</th><th>Amount</th><th>Date</th><th>Description</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="txBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initDashboard } from "./js/transactions.js";
+    initDashboard();
+  </script>
+</body>
+</html>
