@@ -3,50 +3,231 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Dashboard</title>
+  <title>Personal Budget Tracker</title>
   <link rel="stylesheet" href="./css/style.css"/>
 </head>
-<body>
-  <header>
-    <strong>Dashboard</strong>
-    <div class="actions">
-      <small id="userEmail"></small>
-      <button id="logoutBtn" class="btn btn-ghost">Logout</button>
+
+<body class="dashboard">
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">Personal Budget Tracker</div>
+
+      <nav class="nav-links">
+        <a class="nav-link active" href="./index.html">Dashboard</a>
+        <span class="sep">|</span>
+        <a class="nav-link" href="./edit.html">Transactions</a>
+        <span class="sep">|</span>
+        <a class="nav-link disabled" href="#">Reports</a>
+      </nav>
+
+      <div class="nav-user">
+        <div class="user-menu" id="userMenu">
+                <button class="user-pill" id="userMenuBtn" type="button" aria-haspopup="true" aria-expanded="false">
+                  Hi, John! <span class="caret">▼</span>
+                </button>
+
+                <div class="user-dropdown" id="userDropdown" role="menu" aria-label="User menu">
+                  <a href="#" class="user-item" id="logoutLink" role="menuitem">Logout</a>
+                </div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="card">
-      <h2>Monthly Summary (Mock)</h2>
-      <div class="row">
-        <div><small>Income</small><h2 id="incomeTotal">$0.00</h2></div>
-        <div><small>Expenses</small><h2 id="expenseTotal">$0.00</h2></div>
-      </div>
-      <div style="margin-top:10px;">
-        <small>Balance</small>
-        <h2 id="balanceTotal">$0.00</h2>
-      </div>
-      <div class="actions">
-        <a class="btn btn-primary" href="./add.html">Add Transaction</a>
-      </div>
-    </div>
+  <main class="wrap">
+    <div class="panel">
 
-    <div class="card">
-      <h2>Transactions</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Type</th><th>Category</th><th>Amount</th><th>Date</th><th>Description</th><th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="txBody"></tbody>
-      </table>
-    </div>
-  </div>
+      <!-- KPI CARDS -->
+      <section class="kpi-row">
+        <div class="kpi kpi-green">
+          <div class="kpi-title">Total Income</div>
+          <div class="kpi-value">$2,500</div>
+        </div>
 
-  <script type="module">
-    import { initDashboard } from "./js/transactions.js";
-    initDashboard();
+        <div class="kpi kpi-red">
+          <div class="kpi-title">Total Expenses</div>
+          <div class="kpi-value">$1,800</div>
+        </div>
+
+        <div class="kpi kpi-blue">
+          <div class="kpi-title">Balance</div>
+          <div class="kpi-value">$700</div>
+        </div>
+      </section>
+
+      <!-- MAIN GRID -->
+      <section class="grid">
+        <!-- LEFT: ADD TRANSACTION -->
+        <div class="card">
+          <div class="tabs">
+            <button class="tab active" type="button">Add Transaction</button>
+            <button class="tab" type="button">Add Expense</button>
+          </div>
+
+          <div class="form">
+            <div class="field">
+              <label for="amount">Amount:</label>
+              <input id="amount" type="text" placeholder="$">
+            </div>
+
+            <div class="field">
+              <label for="date">Date:</label>
+              <input id="date" type="date">
+            </div>
+
+            <div class="field">
+              <label for="category">Category:</label>
+              <select id="category">
+                <option selected>Food</option>
+                <option>Rent</option>
+                <option>Transport</option>
+                <option>Entertainment</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="desc">Description:</label>
+              <textarea id="desc" rows="3"></textarea>
+            </div>
+
+            <a class="btn btn-green" href="./add.html">Add Expense</a>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right-col">
+          <!-- Spending Breakdown -->
+          <div class="card">
+            <div class="card-title-center">Spending Breakdown</div>
+
+            <div class="breakdown">
+              <!-- CSS pie chart -->
+              <div class="chart-box">
+                <div
+                  class="pie"
+                  aria-label="Spending pie chart"
+                  title="Rent, Food, Transport, Entertainment"
+                ></div>
+              </div>
+
+              <div class="legend">
+                <div class="legend-item"><span class="swatch swatch-rent"></span>Rent</div>
+                <div class="legend-item"><span class="swatch swatch-food"></span>Food</div>
+                <div class="legend-item"><span class="swatch swatch-transport"></span>Transport</div>
+                <div class="legend-item"><span class="swatch swatch-ent"></span>Entertainment</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Transactions -->
+          <div class="card">
+            <div class="card-title">Recent Transactions</div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th class="right">Amount</th>
+                    <th class="right">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>02/15/2026</td>
+                    <td><strong>Food</strong></td>
+                    <td>Groceries</td>
+                    <td class="right amt neg">-$120.00</td>
+                    <td class="right">
+                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
+                      <button class="btn btn-red-sm" type="button">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>02/12/2026</td>
+                    <td><strong>Rent</strong></td>
+                    <td>Monthly Rent</td>
+                    <td class="right amt neg">-$800.00</td>
+                    <td class="right">
+                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
+                      <button class="btn btn-red-sm" type="button">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>02/10/2026</td>
+                    <td><strong>Transport</strong></td>
+                    <td>Gas for Car</td>
+                    <td class="right amt neg">-$50.00</td>
+                    <td class="right">
+                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
+                      <button class="btn btn-red-sm" type="button">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>02/08/2026</td>
+                    <td><strong>Income</strong></td>
+                    <td>Part-Time Job</td>
+                    <td class="right amt pos">+$600.00</td>
+                    <td class="right">
+                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
+                      <button class="btn btn-red-sm" type="button">Delete</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>02/05/2026</td>
+                    <td><strong>Entertainment</strong></td>
+                    <td>Movie Tickets</td>
+                    <td class="right amt neg">-$30.00</td>
+                    <td class="right">
+                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
+                      <button class="btn btn-red-sm" type="button">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    const btn = document.getElementById("userMenuBtn");
+    const dd  = document.getElementById("userDropdown");
+    const logout = document.getElementById("logoutLink");
+
+    function closeMenu() {
+      dd.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = dd.classList.toggle("open");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    document.addEventListener("click", () => closeMenu());
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    logout.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("token");
+      window.location.href = "./login.html";
+    });
   </script>
 </body>
 </html>
