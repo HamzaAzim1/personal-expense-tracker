@@ -94,6 +94,41 @@ https://www.figma.com/make/sfVwTgAGDP5De7AzwSF3uU/Dashboard-Home-Page-Design
 
 ---
 
+## Running Application Locally
+
+**Frontend**: 
+- Open project folder
+- Navigate to frontend directory
+- Run login.html in browser
+
+**Backend**:
+- Open terminal
+- Navigate to backend folder
+- Install dependencies
+- Start server
+- the backend sever should then run
+  
+---
+
+## Contributions for Milestone 02
+
+- Implemented frontend structure and dashboard layout.
+- Worked on UI updates and transaction display improvements.
+- Designed and finalized the relational database schema.
+- Constructed ER diagram and verified SQL constraints.
+- Updated project documentation and activity logs.
+- Revised README and ensured Milestone 02 submission requirements were met.
+- Assisted in reviewing frontend-backend structure
+
+---
+
 ## Status
 This repository currently contains planning and design artifacts for **Milestone 01**.  
 Implementation will begin in subsequent milestones.
+
+As of **Milestone 02** this project has moved on from planning to active implementation:
+
+- Frontend implementation (login register, dashboard, add/edit transaction)
+- Backend environment has set up using Node.js and Express
+- Relational database schema has been finalized with primary keys, foreign keys, and constraints.
+- ER diagram has been created to reflect the relational structure.
