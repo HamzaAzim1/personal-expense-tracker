@@ -1,8 +1,8 @@
-# Activity Log – Week 2 (Planning)
+# Activity Log – Week 2 (Starting the Project)
 
 ## Meeting Information
-**Date:** January 25, 2026  
-**Time:** 7:00 PM – 7:30 PM  
+**Date:** February 16, 2026  
+**Time:** 7:00 PM – 8:00 PM  
 **Location:** Online (Discord)
 
 ## Attendees
@@ -11,41 +11,26 @@
 - Anna Doneva
 
 ## Agenda
-- Finalize project idea
-- Review Milestone 01 requirements
-- Assign initial tasks
+- Work on assigned tasks
+- Discuss if there are any issues accessing the code
+- Thinking ahead about what changes to keep and add based on the project proposal and what to accomplish within this milestone
 
 ## Decisions Made
-- Selected **Personal Expense Tracker** as the project
-- Agreed on core features:
-  - Add expense
-  - View expenses
+- Agreed on core features that we still want to implement in this milestone:
+  - Add expense and view expenses
   - Edit and delete expenses
-  - Categorize expenses
-- Chose GitHub for version control and project management
+  - Add the login and registration page
+  - Categorize expenses (use drop down instead of a textbox)
 
 ## Task Assignments
-- GitHub repository & Kanban board setup: **Hamza Azim**
-- Project proposal draft: **Samiyah Khan and Anna Doneva**
-- User stories & acceptance criteria: **Samiyah Khan**
-- Wireframe design: **Hamza Azim**
+- Backend: **Hamza Azim**
+- Frontend: **Samiyah Khan**
+- Assigning tasks: **Samiyah Khan and Hamza Azim**
+- Wiki blog update: **Anna Doneva**
+- ERD: **Anna Doneva**
 
 ## Next Steps
-- Complete Milestone 01 deliverables
-- Prepare screenshots for submission
-- Begin planning for Milestone 02
+- Complete Milestone 02 deliverables
+- Meet again to discuss any changes that need to be made (vote on what features to keep or remove)
+- Focus on the functionality of the validation/invalidation of the login and registration page
 
-
-Meeting Date: Jan 29, 2026
-
-# Agenda:
-- Finalize UI direction
-- Review dashboard layout options
-
-# Decisions Made:
-- Team agreed to use a dashboard-based layout inspired by a Figma prototype
-- Main dashboard will show expense summary cards and recent transactions
-
-# Artifacts:
-Figma wireframe created:
-https://www.figma.com/make/sfVwTgAGDP5De7AzwSF3uU/Dashboard-Home-Page-Design
