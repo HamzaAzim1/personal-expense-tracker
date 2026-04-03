@@ -43,9 +43,32 @@
     </div>
   </div>
 
-  <script type="module">
-    import { initAddForm } from "./js/transactions.js";
-    initAddForm(document.getElementById("addForm"));
-  </script>
+  <script>
+    document.querySelector("form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const type     = document.querySelector("[name='type']").value;
+      const category = document.querySelector("[name='category']").value.trim();
+      const amount   = parseFloat(document.querySelector("[name='amount']").value);
+      const date     = document.querySelector("[name='date']").value;
+      const desc     = document.querySelector("[name='desc']").value.trim();
+
+      if (!category) { alert("Please enter a category."); return; }
+      if (!amount || amount <= 0) { alert("Please enter a valid amount."); return; }
+      if (!date) { alert("Please select a date."); return; }
+
+      try {
+        const res = await fetch("http://localhost:3000/api/transactions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type, category, amount, transaction_date: date, description: desc })
+        });
+        if (!res.ok) throw new Error("Failed to save");
+        window.location.href = "./index.html";
+      } catch (err) {
+        alert("Error saving transaction: " + err.message);
+      }
+    });
+</script>
 </body>
 </html>

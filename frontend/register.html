@@ -7,32 +7,89 @@
   <link rel="stylesheet" href="./css/style.css"/>
 </head>
 <body>
-  <header><strong>Personal Expense Tracker</strong></header>
-
+  <header><strong>Personal Budget Tracker</strong></header>
   <div class="container">
     <div class="card">
       <h2>Register</h2>
-      <p id="msg"></p>
-
+      <p id="msg" style="color:red;"></p>
       <form id="registerForm">
         <div>
           <label>Email</label>
-          <input name="email" type="email" required>
+          <input id="email" type="text" placeholder="Enter your email" required>
+          <span id="errorEmail" style="color:red;font-size:12px;"></span>
         </div>
         <div>
           <label>Password</label>
-          <input name="password" type="password" minlength="6" required>
+          <input id="password" type="password" placeholder="8-16 chars, start with a letter" required>
+          <span id="errorPassword" style="color:red;font-size:12px;"></span>
         </div>
-        <button class="btn btn-primary">Create account</button>
+        <div>
+          <label>Confirm Password</label>
+          <input id="confirmPassword" type="password" placeholder="Re-enter password" required>
+          <span id="errorConfirm" style="color:red;font-size:12px;"></span>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Register</button>
+          <a href="./login.html">Login instead</a>
+        </div>
       </form>
-
-      <p>Already have an account? <a href="./login.html">Login</a></p>
     </div>
   </div>
 
-  <script type="module">
-    import { handleRegister } from "./js/auth.js";
-    handleRegister(document.getElementById("registerForm"));
+  <script>
+    const emailReg = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
+    const passReg  = /^[a-zA-Z]\w{7,15}$/;
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email    = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirm  = document.getElementById("confirmPassword").value;
+      let valid = true;
+
+      // Clear errors
+      document.getElementById("errorEmail").textContent    = "";
+      document.getElementById("errorPassword").textContent = "";
+      document.getElementById("errorConfirm").textContent  = "";
+      document.getElementById("msg").textContent           = "";
+
+      // Validate email
+      if (!emailReg.test(email)) {
+        document.getElementById("errorEmail").textContent = "Enter a valid email";
+        valid = false;
+      }
+
+      // Validate password format
+      if (!passReg.test(password)) {
+        document.getElementById("errorPassword").textContent = "Password must be 8-16 characters and start with a letter";
+        valid = false;
+      }
+
+      // Confirm passwords match
+      if (password !== confirm) {
+        document.getElementById("errorConfirm").textContent = "Passwords do not match";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      try {
+        const res = await fetch("http://localhost:3000/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          document.getElementById("msg").textContent = data.error;
+        } else {
+          window.location.href = "./login.html";
+        }
+      } catch (err) {
+        document.getElementById("msg").textContent = "Could not connect to server.";
+      }
+    });
   </script>
 </body>
 </html>

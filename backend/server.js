@@ -1,20 +1,27 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
 
 const authRoutes = require("./routes/authRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 
 const app = express();
-app.use(cors());
+
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
-// Health check
-app.get("/", (req, res) => {
-  res.json({ status: "ok", message: "Backend running (Milestone 02)" });
-});
+// Session setup — same concept as PHP session_start()
+app.use(session({
+  secret: "budget-tracker-secret",
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
+}));
 
-// Route mounting
+app.get("/", (req, res) => res.json({ status: "ok" }));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/categories", categoryRoutes);

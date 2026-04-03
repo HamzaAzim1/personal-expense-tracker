@@ -1,9 +1,10 @@
-// controllers/categoryController.js
+const pool = require("../db");
 
-exports.getAll = (req, res) => {
-  // Milestone 02 stub
-  res.status(200).json({
-    todo: "list categories",
-    sample: ["Food", "Rent", "Transport", "Entertainment", "Job"]
-  });
+exports.getAll = async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM categories ORDER BY name");
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
