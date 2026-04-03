@@ -37,16 +37,69 @@
         </div>
         <div>
           <label>Description</label>
-          <input name="desc">
+          <input name="desc" placeholder="Optional note">
         </div>
-        <button class="btn btn-primary">Update</button>
+        <button class="btn btn-primary" type="submit">Update</button>
       </form>
     </div>
   </div>
 
-  <script type="module">
-    import { initEditForm } from "./js/transactions.js";
-    initEditForm(document.getElementById("editForm"));
+  <script>
+    const API = "http://localhost:3000/api";
+
+    // Get transaction id from URL e.g. edit.html?id=3
+    const params = new URLSearchParams(window.location.search);
+    const id     = params.get("id");
+    const msg    = document.getElementById("msg");
+    const form   = document.getElementById("editForm");
+
+    if (!id) {
+      msg.textContent = "No transaction ID provided.";
+      form.style.display = "none";
+    } else {
+      // Load the transaction and pre-fill the form
+      fetch(`${API}/transactions/${id}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Transaction not found");
+          return res.json();
+        })
+        .then(tx => {
+          form.type.value     = tx.type;
+          form.category.value = tx.category;
+          form.amount.value   = tx.amount;
+          form.date.value     = tx.transaction_date.split("T")[0];
+          form.desc.value     = tx.description || "";
+        })
+        .catch(err => {
+          msg.textContent = "Error loading transaction: " + err.message;
+          form.style.display = "none";
+        });
+    }
+
+    // Submit — save changes and go back to dashboard
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const body = {
+        type:             form.type.value,
+        category:         form.category.value,
+        amount:           parseFloat(form.amount.value),
+        transaction_date: form.date.value,
+        description:      form.desc.value.trim()
+      };
+
+      try {
+        const res = await fetch(`${API}/transactions/${id}`, {
+          method:  "PUT",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error("Failed to update");
+        window.location.href = "./index.html";
+      } catch (err) {
+        msg.textContent = "Error saving changes: " + err.message;
+      }
+    });
   </script>
 </body>
 </html>

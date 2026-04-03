@@ -16,20 +16,19 @@
       <nav class="nav-links">
         <a class="nav-link active" href="./index.html">Dashboard</a>
         <span class="sep">|</span>
-        <a class="nav-link" href="./edit.html">Transactions</a>
+        <a class="nav-link" href="./add.html">Transactions</a>
         <span class="sep">|</span>
         <a class="nav-link disabled" href="#">Reports</a>
       </nav>
 
       <div class="nav-user">
         <div class="user-menu" id="userMenu">
-                <button class="user-pill" id="userMenuBtn" type="button" aria-haspopup="true" aria-expanded="false">
-                  Hi, John! <span class="caret">▼</span>
-                </button>
-
-                <div class="user-dropdown" id="userDropdown" role="menu" aria-label="User menu">
-                  <a href="#" class="user-item" id="logoutLink" role="menuitem">Logout</a>
-                </div>
+          <button class="user-pill" id="userMenuBtn" type="button" aria-haspopup="true" aria-expanded="false">
+            Hi, John! <span class="caret">▼</span>
+          </button>
+          <div class="user-dropdown" id="userDropdown" role="menu" aria-label="User menu">
+            <a href="#" class="user-item" id="logoutLink" role="menuitem">Logout</a>
+          </div>
         </div>
       </div>
     </div>
@@ -42,87 +41,116 @@
       <section class="kpi-row">
         <div class="kpi kpi-green">
           <div class="kpi-title">Total Income</div>
-          <div class="kpi-value">$2,500</div>
+          <div class="kpi-value" id="kpiIncome">$0.00</div>
         </div>
-
         <div class="kpi kpi-red">
           <div class="kpi-title">Total Expenses</div>
-          <div class="kpi-value">$1,800</div>
+          <div class="kpi-value" id="kpiExpenses">$0.00</div>
         </div>
-
         <div class="kpi kpi-blue">
           <div class="kpi-title">Balance</div>
-          <div class="kpi-value">$700</div>
+          <div class="kpi-value" id="kpiBalance">$0.00</div>
         </div>
       </section>
 
       <!-- MAIN GRID -->
       <section class="grid">
-        <!-- LEFT: ADD TRANSACTION -->
+
+        <!-- LEFT: ADD INCOME / ADD EXPENSE TABS -->
         <div class="card">
           <div class="tabs">
-            <button class="tab active" type="button">Add Transaction</button>
-            <button class="tab" type="button">Add Expense</button>
+            <button class="tab active" type="button" id="tabIncome">Add Income</button>
+            <button class="tab" type="button" id="tabExpense">Add Expense</button>
           </div>
 
-          <div class="form">
+          <!-- ADD INCOME FORM -->
+          <div class="form" id="formIncome">
             <div class="field">
-              <label for="amount">Amount:</label>
-              <input id="amount" type="text" placeholder="$">
+              <label for="incomeAmount">Amount:</label>
+              <input id="incomeAmount" type="number" placeholder="$" min="0.01" step="0.01">
             </div>
-
             <div class="field">
-              <label for="date">Date:</label>
-              <input id="date" type="date">
+              <label for="incomeDate">Date:</label>
+              <input id="incomeDate" type="date">
             </div>
-
             <div class="field">
-              <label for="category">Category:</label>
-              <select id="category">
-                <option selected>Food</option>
+              <label for="incomeCategory">Category:</label>
+              <select id="incomeCategory">
+                <option>Salary</option>
+                <option>Freelance</option>
+                <option>Investment</option>
+                <option>Part-Time Job</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="incomeDesc">Description:</label>
+              <textarea id="incomeDesc" rows="3"></textarea>
+            </div>
+            <button class="btn btn-green" type="button" id="btnAddIncome">Add Income</button>
+          </div>
+
+          <!-- ADD EXPENSE FORM -->
+          <div class="form" id="formExpense" style="display:none;">
+            <div class="field">
+              <label for="expenseAmount">Amount:</label>
+              <input id="expenseAmount" type="number" placeholder="$" min="0.01" step="0.01">
+            </div>
+            <div class="field">
+              <label for="expenseDate">Date:</label>
+              <input id="expenseDate" type="date">
+            </div>
+            <div class="field">
+              <label for="expenseCategory">Category:</label>
+              <select id="expenseCategory">
+                <option>Food</option>
                 <option>Rent</option>
                 <option>Transport</option>
                 <option>Entertainment</option>
+                <option>Grocery</option>
+                <option>Apparel</option>
+                <option>Other</option>
               </select>
             </div>
-
             <div class="field">
-              <label for="desc">Description:</label>
-              <textarea id="desc" rows="3"></textarea>
+              <label for="expenseDesc">Description:</label>
+              <textarea id="expenseDesc" rows="3"></textarea>
             </div>
-
-            <a class="btn btn-green" href="./add.html">Add Expense</a>
+            <button class="btn btn-expense" type="button" id="btnAddExpense">Add Expense</button>
           </div>
         </div>
 
         <!-- RIGHT SIDE -->
         <div class="right-col">
+
           <!-- Spending Breakdown -->
           <div class="card">
             <div class="card-title-center">Spending Breakdown</div>
-
             <div class="breakdown">
-              <!-- CSS pie chart -->
               <div class="chart-box">
-                <div
-                  class="pie"
-                  aria-label="Spending pie chart"
-                  title="Rent, Food, Transport, Entertainment"
-                ></div>
+                <div class="pie" aria-label="Spending pie chart"></div>
               </div>
-
               <div class="legend">
                 <div class="legend-item"><span class="swatch swatch-rent"></span>Rent</div>
                 <div class="legend-item"><span class="swatch swatch-food"></span>Food</div>
                 <div class="legend-item"><span class="swatch swatch-transport"></span>Transport</div>
                 <div class="legend-item"><span class="swatch swatch-ent"></span>Entertainment</div>
+                <div class="legend-item"><span class="swatch swatch-grocery"></span>Grocery</div>
+                <div class="legend-item"><span class="swatch swatch-apparel"></span>Apparel</div>
+                <div class="legend-item"><span class="swatch swatch-other"></span>Other</div>
               </div>
             </div>
           </div>
 
-          <!-- Recent Transactions -->
+          <!-- Transactions Table -->
           <div class="card">
-            <div class="card-title">Recent Transactions</div>
+            <div class="card-title">Transactions</div>
+
+            <div class="filter-bar">
+              <button class="filter-btn active" type="button" data-filter="all">All</button>
+              <button class="filter-btn" type="button" data-filter="income">Income</button>
+              <button class="filter-btn" type="button" data-filter="expense">Expenses</button>
+            </div>
 
             <div class="table-wrap">
               <table>
@@ -135,99 +163,292 @@
                     <th class="right">Action</th>
                   </tr>
                 </thead>
-
-                <tbody>
-                  <tr>
-                    <td>02/15/2026</td>
-                    <td><strong>Food</strong></td>
-                    <td>Groceries</td>
-                    <td class="right amt neg">-$120.00</td>
-                    <td class="right">
-                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
-                      <button class="btn btn-red-sm" type="button">Delete</button>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>02/12/2026</td>
-                    <td><strong>Rent</strong></td>
-                    <td>Monthly Rent</td>
-                    <td class="right amt neg">-$800.00</td>
-                    <td class="right">
-                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
-                      <button class="btn btn-red-sm" type="button">Delete</button>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>02/10/2026</td>
-                    <td><strong>Transport</strong></td>
-                    <td>Gas for Car</td>
-                    <td class="right amt neg">-$50.00</td>
-                    <td class="right">
-                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
-                      <button class="btn btn-red-sm" type="button">Delete</button>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>02/08/2026</td>
-                    <td><strong>Income</strong></td>
-                    <td>Part-Time Job</td>
-                    <td class="right amt pos">+$600.00</td>
-                    <td class="right">
-                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
-                      <button class="btn btn-red-sm" type="button">Delete</button>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>02/05/2026</td>
-                    <td><strong>Entertainment</strong></td>
-                    <td>Movie Tickets</td>
-                    <td class="right amt neg">-$30.00</td>
-                    <td class="right">
-                      <a class="btn btn-blue-sm" href="./edit.html">Edit</a>
-                      <button class="btn btn-red-sm" type="button">Delete</button>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody id="txBody"></tbody>
               </table>
+              <p id="emptyMsg"   style="display:none; text-align:center; color:#94a3b8; padding:16px 0; font-size:13px;">No transactions found.</p>
+              <p id="loadingMsg" style="text-align:center; color:#94a3b8; padding:16px 0; font-size:13px;">Loading...</p>
             </div>
           </div>
+
         </div>
       </section>
-
     </div>
   </main>
 
-  <script>
-    const btn = document.getElementById("userMenuBtn");
-    const dd  = document.getElementById("userDropdown");
-    const logout = document.getElementById("logoutLink");
+  <style>
+    .filter-bar { display:flex; gap:8px; margin-bottom:12px; }
+    .filter-btn {
+      border:1px solid #cbd5e1; background:#f1f5f9; color:#64748b;
+      font-weight:700; font-size:12px; padding:5px 14px;
+      border-radius:999px; cursor:pointer; transition:all .15s;
+    }
+    .filter-btn.active { background:#2f70b1; color:#fff; border-color:#2f70b1; }
+    .filter-btn:hover:not(.active) { background:#e2e8f0; }
 
-    function closeMenu() {
-      dd.classList.remove("open");
-      btn.setAttribute("aria-expanded", "false");
+    body.dashboard .btn-expense {
+      width:70%; margin:8px auto 0; padding:10px 12px; border-radius:6px;
+      font-size:13px; font-weight:800;
+      background:linear-gradient(#ef5a5a,#c93535);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 14px rgba(0,0,0,.10);
+      display:inline-flex; justify-content:center; align-items:center;
+      color:#fff; border:none; cursor:pointer;
     }
 
-    btn.addEventListener("click", (e) => {
+    .type-badge {
+      display:inline-block; padding:2px 7px; border-radius:999px;
+      font-size:10px; font-weight:700; margin-left:4px;
+    }
+    .type-badge.income  { background:#dcfce7; color:#166534; }
+    .type-badge.expense { background:#fee2e2; color:#991b1b; }
+  </style>
+
+  <script>
+    const API = "http://localhost:3000/api";
+    let transactions  = [];
+    let currentFilter = "all";
+
+    // ── Helpers ──────────────────────────────────────────────────
+    function fmt(n) {
+      return "$" + parseFloat(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function fmtDate(iso) {
+      const [y, m, d] = iso.split("T")[0].split("-");
+      return `${m}/${d}/${y}`;
+    }
+
+    // ── KPI cards ────────────────────────────────────────────────
+    function updateKPIs() {
+      const income   = transactions.filter(t => t.type === "income").reduce((s,t)  => s + parseFloat(t.amount), 0);
+      const expenses = transactions.filter(t => t.type === "expense").reduce((s,t) => s + parseFloat(t.amount), 0);
+      document.getElementById("kpiIncome").textContent   = fmt(income);
+      document.getElementById("kpiExpenses").textContent = fmt(expenses);
+      document.getElementById("kpiBalance").textContent  = fmt(income - expenses);
+
+      updatePieChart();
+    }
+
+function updatePieChart() {
+  const expenses = transactions.filter(t => t.type === "expense");
+  
+  const totals = {
+  Rent: 0,
+  Food: 0,
+  Transport: 0,
+  Entertainment: 0,
+  Grocery: 0,
+  Apparel: 0,
+  Other: 0
+  };
+
+  expenses.forEach(t => {
+    const cat = t.category;
+    if (totals.hasOwnProperty(cat)) {
+      totals[cat] += parseFloat(t.amount);
+    } else {
+      totals.Other += parseFloat(t.amount);
+    }
+  });
+
+  const total = Object.values(totals).reduce((a, b) => a + b, 0);
+  
+  if (total === 0) {
+    document.querySelector(".pie").style.background = "#e2e8f0";
+    return;
+  }
+
+  // Build conic-gradient from actual data
+  const colors = {
+    Rent: "#c0392b",
+    Food: "#d4870a",
+    Transport: "#1a7a3a",
+    Entertainment: "#1a5fa8",
+    Grocery: "#bfffd7",
+    Apparel: "#9333ea",
+    Other: "#f694c8"
+  };
+
+  let deg = 0;
+  let gradient = "";
+  Object.entries(totals).forEach(([cat, amount]) => {
+    if (amount === 0) return;
+    const slice = (amount / total) * 360;
+    gradient += `${colors[cat]} ${deg}deg ${deg + slice}deg, `;
+    deg += slice;
+  });
+
+  gradient = gradient.replace(/,\s*$/, "");
+  document.querySelector(".pie").style.background = `conic-gradient(${gradient})`;
+
+  // Update legend to show percentages
+  const legendItems = document.querySelectorAll(".legend-item");
+  const legendData = [
+  { name: "Rent", key: "Rent" },
+  { name: "Food", key: "Food" },
+  { name: "Transport", key: "Transport" },
+  { name: "Entertainment", key: "Entertainment" },
+  { name: "Grocery", key: "Grocery" },
+  { name: "Apparel", key: "Apparel" },
+  { name: "Other", key: "Other" }
+  ];
+  legendItems.forEach((item, i) => {
+    if (legendData[i]) {
+      const pct = total > 0 ? ((totals[legendData[i].key] / total) * 100).toFixed(1) : 0;
+      const swatch = item.querySelector(".swatch");
+      item.textContent = `${legendData[i].name} (${pct}%)`;
+      item.prepend(swatch);
+    }
+  });
+}
+
+    // ── Render table ─────────────────────────────────────────────
+    function renderTable() {
+      const tbody    = document.getElementById("txBody");
+      const emptyMsg = document.getElementById("emptyMsg");
+
+      const filtered = currentFilter === "all"
+        ? transactions
+        : transactions.filter(t => t.type === currentFilter);
+
+      tbody.innerHTML = "";
+
+      if (filtered.length === 0) { emptyMsg.style.display = "block"; return; }
+      emptyMsg.style.display = "none";
+
+      filtered.forEach(tx => {
+        const isIncome = tx.type === "income";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${fmtDate(tx.transaction_date)}</td>
+          <td><strong>${tx.category}</strong><span class="type-badge ${tx.type}">${isIncome ? "Income" : "Expense"}</span></td>
+          <td>${tx.description || "—"}</td>
+          <td class="right amt ${isIncome ? "pos" : "neg"}">${isIncome ? "+" : "-"}${fmt(tx.amount)}</td>
+          <td class="right">
+            <a class="btn btn-blue-sm" href="./edit.html?id=${tx.transaction_id}">Edit</a>
+            <button class="btn btn-red-sm" type="button" onclick="deleteTx(${tx.transaction_id})">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ── Load from backend ────────────────────────────────────────
+    async function loadTransactions() {
+      try {
+        const res  = await fetch(`${API}/transactions`);
+        transactions = await res.json();
+        document.getElementById("loadingMsg").style.display = "none";
+        updateKPIs();
+        renderTable();
+      } catch (err) {
+        document.getElementById("loadingMsg").textContent = "Failed to load transactions.";
+      }
+    }
+
+    // ── Add Income ───────────────────────────────────────────────
+    document.getElementById("btnAddIncome").addEventListener("click", async () => {
+      const amount   = parseFloat(document.getElementById("incomeAmount").value);
+      const date     = document.getElementById("incomeDate").value;
+      const category = document.getElementById("incomeCategory").value;
+      const desc     = document.getElementById("incomeDesc").value.trim();
+
+      if (!amount || amount <= 0) { alert("Please enter a valid amount."); return; }
+      if (!date)                  { alert("Please select a date."); return; }
+
+      try {
+        const res = await fetch(`${API}/transactions`, {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify({ type: "income", amount, transaction_date: date, category, description: desc })
+        });
+        if (!res.ok) throw new Error("Failed to save");
+        document.getElementById("incomeAmount").value = "";
+        document.getElementById("incomeDate").value   = "";
+        document.getElementById("incomeDesc").value   = "";
+        await loadTransactions();
+      } catch (err) { alert("Error adding income: " + err.message); }
+    });
+
+    // ── Add Expense ──────────────────────────────────────────────
+    document.getElementById("btnAddExpense").addEventListener("click", async () => {
+      const amount   = parseFloat(document.getElementById("expenseAmount").value);
+      const date     = document.getElementById("expenseDate").value;
+      const category = document.getElementById("expenseCategory").value;
+      const desc     = document.getElementById("expenseDesc").value.trim();
+
+      if (!amount || amount <= 0) { alert("Please enter a valid amount."); return; }
+      if (!date)                  { alert("Please select a date."); return; }
+
+      try {
+        const res = await fetch(`${API}/transactions`, {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify({ type: "expense", amount, transaction_date: date, category, description: desc })
+        });
+        if (!res.ok) throw new Error("Failed to save");
+        document.getElementById("expenseAmount").value = "";
+        document.getElementById("expenseDate").value   = "";
+        document.getElementById("expenseDesc").value   = "";
+        await loadTransactions();
+      } catch (err) { alert("Error adding expense: " + err.message); }
+    });
+
+    // ── Delete ───────────────────────────────────────────────────
+    async function deleteTx(id) {
+      if (!confirm("Delete this transaction?")) return;
+      try {
+        await fetch(`${API}/transactions/${id}`, { method: "DELETE" });
+        await loadTransactions();
+      } catch (err) { alert("Error deleting: " + err.message); }
+    }
+
+    // ── Filter buttons ───────────────────────────────────────────
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.dataset.filter;
+        renderTable();
+      });
+    });
+
+    // ── Tab switching ────────────────────────────────────────────
+    document.getElementById("tabIncome").addEventListener("click", () => {
+      document.getElementById("tabIncome").classList.add("active");
+      document.getElementById("tabExpense").classList.remove("active");
+      document.getElementById("formIncome").style.display  = "grid";
+      document.getElementById("formExpense").style.display = "none";
+    });
+    document.getElementById("tabExpense").addEventListener("click", () => {
+      document.getElementById("tabExpense").classList.add("active");
+      document.getElementById("tabIncome").classList.remove("active");
+      document.getElementById("formExpense").style.display = "grid";
+      document.getElementById("formIncome").style.display  = "none";
+    });
+
+    // ── User menu ────────────────────────────────────────────────
+    const menuBtn  = document.getElementById("userMenuBtn");
+    const dropdown = document.getElementById("userDropdown");
+    const logout   = document.getElementById("logoutLink");
+
+    function closeMenu() {
+      dropdown.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+    menuBtn.addEventListener("click", e => {
       e.stopPropagation();
-      const isOpen = dd.classList.toggle("open");
-      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      const isOpen = dropdown.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
-
     document.addEventListener("click", () => closeMenu());
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeMenu();
-    });
-
-    logout.addEventListener("click", (e) => {
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+    logout.addEventListener("click", e => {
       e.preventDefault();
       localStorage.removeItem("token");
       window.location.href = "./login.html";
     });
+
+    // ── Init ─────────────────────────────────────────────────────
+    loadTransactions();
   </script>
 </body>
 </html>
