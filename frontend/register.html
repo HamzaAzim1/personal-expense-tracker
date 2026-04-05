@@ -14,6 +14,11 @@
       <p id="msg" style="color:red;"></p>
       <form id="registerForm">
         <div>
+          <label>Full Name</label>
+          <input id="fullName" type="text" placeholder="Enter your name" required>
+          <span id="errorName" style="color:red;font-size:12px;"></span>
+        </div>
+        <div>
           <label>Email</label>
           <input id="email" type="text" placeholder="Enter your email" required>
           <span id="errorEmail" style="color:red;font-size:12px;"></span>
@@ -35,50 +40,47 @@
       </form>
     </div>
   </div>
-
   <script>
     const emailReg = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
     const passReg  = /^[a-zA-Z]\w{7,15}$/;
 
     document.getElementById("registerForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-
+      const fullName = document.getElementById("fullName").value.trim();
       const email    = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
       const confirm  = document.getElementById("confirmPassword").value;
       let valid = true;
 
-      // Clear errors
+      document.getElementById("errorName").textContent     = "";
       document.getElementById("errorEmail").textContent    = "";
       document.getElementById("errorPassword").textContent = "";
       document.getElementById("errorConfirm").textContent  = "";
       document.getElementById("msg").textContent           = "";
 
-      // Validate email
+      if (!fullName) {
+        document.getElementById("errorName").textContent = "Please enter your name";
+        valid = false;
+      }
       if (!emailReg.test(email)) {
         document.getElementById("errorEmail").textContent = "Enter a valid email";
         valid = false;
       }
-
-      // Validate password format
       if (!passReg.test(password)) {
         document.getElementById("errorPassword").textContent = "Password must be 8-16 characters and start with a letter";
         valid = false;
       }
-
-      // Confirm passwords match
       if (password !== confirm) {
         document.getElementById("errorConfirm").textContent = "Passwords do not match";
         valid = false;
       }
-
       if (!valid) return;
 
       try {
         const res = await fetch("http://localhost:3000/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ email, password, full_name: fullName })
         });
         const data = await res.json();
         if (!res.ok) {

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Reports</title>
+  <link rel="stylesheet" href="./css/style.css"/>
+</head>
+<body class="dashboard">
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">Personal Budget Tracker</div>
+      <nav class="nav-links">
+        <a class="nav-link" href="./index.html">Dashboard</a>
+        <span class="sep">|</span>
+        <a class="nav-link" href="./add.html">Transactions</a>
+        <span class="sep">|</span>
+        <a class="nav-link active" href="./reports.html">Reports</a>
+      </nav>
+      <div class="nav-user">
+        <div class="user-menu" id="userMenu">
+          <button class="user-pill" id="userMenuBtn" type="button" aria-haspopup="true" aria-expanded="false">
+            Hi, <span id="userName">...</span>! <span class="caret">▼</span>
+          </button>
+          <div class="user-dropdown" id="userDropdown" role="menu">
+            <a href="#" class="user-item" id="logoutLink" role="menuitem">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel">
+      <div class="card">
+        <div class="card-title">Export Transactions</div>
+        <p style="font-size:14px; color:#475569; margin-bottom:16px;">Download all your income and expense records as a CSV file you can open in Excel or Google Sheets.</p>
+
+        <div class="filter-bar" style="margin-bottom:20px;">
+          <button class="filter-btn active" type="button" data-export="all">All</button>
+          <button class="filter-btn" type="button" data-export="income">Income Only</button>
+          <button class="filter-btn" type="button" data-export="expense">Expenses Only</button>
+        </div>
+
+        <button class="btn btn-green" type="button" id="btnExport" style="width:200px; margin:0;">Download CSV</button>
+        <p id="exportMsg" style="margin-top:12px; font-size:13px; color:#64748b;"></p>
+
+        <div class="table-wrap" style="margin-top:24px;">
+          <div class="card-title" style="font-size:15px;">Preview</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th class="right">Amount</th>
+              </tr>
+            </thead>
+            <tbody id="previewBody"></tbody>
+          </table>
+          <p id="emptyMsg" style="display:none; text-align:center; color:#94a3b8; padding:16px 0; font-size:13px;">No transactions found.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .filter-bar { display:flex; gap:8px; margin-bottom:12px; }
+    .filter-btn {
+      border:1px solid #cbd5e1; background:#f1f5f9; color:#64748b;
+      font-weight:700; font-size:12px; padding:5px 14px;
+      border-radius:999px; cursor:pointer; transition:all .15s;
+    }
+    .filter-btn.active { background:#2f70b1; color:#fff; border-color:#2f70b1; }
+    .filter-btn:hover:not(.active) { background:#e2e8f0; }
+    body.dashboard .btn-green {
+      width:70%; margin:8px auto 0; padding:10px 12px; border-radius:6px;
+      font-size:13px; font-weight:800;
+      background:linear-gradient(#1e7a3a, #145c2a);
+      display:inline-flex; justify-content:center; align-items:center;
+      color:#fff; border:none; cursor:pointer; text-decoration:none;
+    }
+    .type-badge {
+      display:inline-block; padding:2px 7px; border-radius:999px;
+      font-size:10px; font-weight:700; margin-left:4px;
+    }
+    .type-badge.income  { background:#dcfce7; color:#166534; }
+    .type-badge.expense { background:#fee2e2; color:#991b1b; }
+  </style>
+
+  <script>
+    const API = "http://localhost:3000/api";
+    let allTransactions = [];
+    let exportFilter = "all";
+
+    function fmtDate(iso) {
+      const [y,m,d] = iso.split("T")[0].split("-");
+      return `${m}/${d}/${y}`;
+    }
+    function fmt(n) {
+      return "$" + parseFloat(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function getFiltered() {
+      return exportFilter === "all"
+        ? allTransactions
+        : allTransactions.filter(t => t.type === exportFilter);
+    }
+
+    function renderPreview() {
+      const tbody = document.getElementById("previewBody");
+      const emptyMsg = document.getElementById("emptyMsg");
+      const filtered = getFiltered();
+      tbody.innerHTML = "";
+      if (filtered.length === 0) { emptyMsg.style.display = "block"; return; }
+      emptyMsg.style.display = "none";
+      filtered.forEach(tx => {
+        const isIncome = tx.type === "income";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${fmtDate(tx.transaction_date)}</td>
+          <td><span class="type-badge ${tx.type}">${isIncome ? "Income" : "Expense"}</span></td>
+          <td><strong>${tx.category}</strong></td>
+          <td>${tx.description || "—"}</td>
+          <td class="right" style="color:${isIncome ? "#16a34a" : "#ef4444"}; font-weight:700;">
+            ${isIncome ? "+" : "-"}${fmt(tx.amount)}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function downloadCSV() {
+      const filtered = getFiltered();
+      if (filtered.length === 0) {
+        document.getElementById("exportMsg").textContent = "No transactions to export.";
+        return;
+      }
+
+      const rows = [["Date","Type","Category","Description","Amount"]];
+      filtered.forEach(tx => {
+        const sign = tx.type === "income" ? "+" : "-";
+        rows.push([
+          tx.transaction_date.split("T")[0],
+          tx.type,
+          tx.category,
+          tx.description || "",
+          sign + parseFloat(tx.amount).toFixed(2)
+        ]);
+      });
+
+      const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href     = url;
+      a.download = `transactions_${exportFilter}_${new Date().toISOString().split("T")[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      document.getElementById("exportMsg").textContent = "Download started!";
+    }
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        exportFilter = btn.dataset.export;
+        renderPreview();
+      });
+    });
+
+    document.getElementById("btnExport").addEventListener("click", downloadCSV);
+
+
+    const menuBtn  = document.getElementById("userMenuBtn");
+    const dropdown = document.getElementById("userDropdown");
+    function closeMenu() { dropdown.classList.remove("open"); menuBtn.setAttribute("aria-expanded","false"); }
+    menuBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+    document.addEventListener("click", () => closeMenu());
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+    document.getElementById("logoutLink").addEventListener("click", e => {
+      e.preventDefault();
+      fetch(`${API}/auth/logout`, { method:"POST", credentials:"include" })
+        .then(() => window.location.href = "./login.html");
+    });
+
+    async function init() {
+        document.getElementById("userName").textContent = "John";
+        try {
+            const res = await fetch(`${API}/transactions`);
+            allTransactions = await res.json();
+            renderPreview();
+        } catch(err) {
+            document.getElementById("exportMsg").textContent = "Failed to load transactions.";
+        }
+        }
+        init();
+  </script>
+</body>
+</html>

@@ -47,7 +47,6 @@
   <script>
     const API = "http://localhost:3000/api";
 
-    // Get transaction id from URL e.g. edit.html?id=3
     const params = new URLSearchParams(window.location.search);
     const id     = params.get("id");
     const msg    = document.getElementById("msg");
@@ -57,7 +56,6 @@
       msg.textContent = "No transaction ID provided.";
       form.style.display = "none";
     } else {
-      // Load the transaction and pre-fill the form
       fetch(`${API}/transactions/${id}`)
         .then(res => {
           if (!res.ok) throw new Error("Transaction not found");
@@ -76,7 +74,6 @@
         });
     }
 
-    // Submit — save changes and go back to dashboard
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
