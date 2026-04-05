@@ -1,0 +1,39 @@
+# Activity Log – Week 5
+
+## Meeting Information  
+**Date:** March 15, 2026  
+**Time:** 6:00 PM – 7:15 PM  
+**Location:** Online (Discord)
+
+## Attendees  
+- Hamza Azim  
+- Samiyah Khan  
+- Anna Doneva  
+
+## Agenda  
+- Review backend progress and API implementation  
+- Discuss database connection and queries  
+- Identify and fix bugs in transaction handling  
+- Plan integration between frontend and backend  
+
+## Decisions Made  
+- Confirmed backend routes are working for:
+  - Adding transactions  
+  - Retrieving transactions  
+  - Updating and deleting transactions  
+- Agreed to standardize category names between frontend and backend  
+- Decided to clean up unnecessary files from the repository (node_modules, .env)  
+- Confirmed to begin connecting frontend with real backend data  
+
+## Task Assignments  
+- Backend: **Hamza Azim**  
+- Frontend: **Samiyah Khan and Anna Doneva**  
+- Assigning tasks: **Hamza Azim and Samiyah Khan**  
+- Wiki blog update: **Anna Doneva**  
+- Database and API testing: **Hamza Azim**  
+
+## Next Steps  
+- Connect frontend to backend API endpoints  
+- Test full CRUD functionality  
+- Improve error handling in backend  
+- Continue fixing bugs and inconsistencies  
