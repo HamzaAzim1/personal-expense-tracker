@@ -1,3 +1,4 @@
 Kanban Board: https://github.com/users/HamzaAzim1/projects/1/views/1
 Repo: https://github.com/HamzaAzim1/personal-expense-tracker
+Wiki Doc: https://github.com/HamzaAzim1/personal-expense-tracker/tree/main/docs
 Video: https://youtu.be/CJVyC56GBxk
