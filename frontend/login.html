@@ -41,18 +41,15 @@
       const password = document.getElementById("password").value;
       let valid = true;
 
-      // Clear errors
       document.getElementById("errorEmail").textContent    = "";
       document.getElementById("errorPassword").textContent = "";
       document.getElementById("msg").textContent           = "";
 
-      // Validate email
       if (!emailReg.test(email)) {
         document.getElementById("errorEmail").textContent = "Enter a valid email";
         valid = false;
       }
 
-      // Validate password not empty
       if (!password) {
         document.getElementById("errorPassword").textContent = "Enter your password";
         valid = false;

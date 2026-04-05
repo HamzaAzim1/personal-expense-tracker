@@ -9,15 +9,21 @@ const categoryRoutes = require("./routes/categoryRoutes");
 
 const app = express();
 
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({
+  origin: ["http://127.0.0.1:5500", "http://localhost:5500", "http://127.0.0.1:3000", "http://localhost:3000"],
+  credentials: true
+}));
 app.use(express.json());
 
-// Session setup — same concept as PHP session_start()
 app.use(session({
   secret: "budget-tracker-secret",
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24,
+    sameSite: "none",
+    secure: false
+  }
 }));
 
 app.get("/", (req, res) => res.json({ status: "ok" }));

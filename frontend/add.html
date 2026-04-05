@@ -17,14 +17,15 @@
       <form id="addForm">
         <div>
           <label>Type</label>
-          <select name="type" required>
+          <select name="type" id="typeSelect" required>
             <option value="expense">Expense</option>
             <option value="income">Income</option>
           </select>
         </div>
         <div>
           <label>Category</label>
-          <input name="category" placeholder="e.g., Food, Rent, Job" required>
+          <select name="category" id="categorySelect" required>
+          </select>
         </div>
         <div>
           <label>Amount</label>
@@ -38,22 +39,35 @@
           <label>Description</label>
           <input name="desc" placeholder="Optional note">
         </div>
-        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-primary" type="submit">Save</button>
       </form>
     </div>
   </div>
 
   <script>
-    document.querySelector("form").addEventListener("submit", async (e) => {
-      e.preventDefault();
+    const expenseCategories = ["Food", "Rent", "Transport", "Entertainment", "Grocery", "Apparel", "Other"];
+    const incomeCategories  = ["Salary", "Freelance", "Investment", "Part-Time Job", "Other"];
 
-      const type     = document.querySelector("[name='type']").value;
-      const category = document.querySelector("[name='category']").value.trim();
+    const typeSelect     = document.getElementById("typeSelect");
+    const categorySelect = document.getElementById("categorySelect");
+
+    function updateCategories() {
+      const cats = typeSelect.value === "income" ? incomeCategories : expenseCategories;
+      categorySelect.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join("");
+    }
+
+    updateCategories();
+
+    typeSelect.addEventListener("change", updateCategories);
+
+    document.getElementById("addForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const type     = typeSelect.value;
+      const category = categorySelect.value;
       const amount   = parseFloat(document.querySelector("[name='amount']").value);
       const date     = document.querySelector("[name='date']").value;
       const desc     = document.querySelector("[name='desc']").value.trim();
 
-      if (!category) { alert("Please enter a category."); return; }
       if (!amount || amount <= 0) { alert("Please enter a valid amount."); return; }
       if (!date) { alert("Please select a date."); return; }
 
@@ -69,6 +83,6 @@
         alert("Error saving transaction: " + err.message);
       }
     });
-</script>
+  </script>
 </body>
 </html>
